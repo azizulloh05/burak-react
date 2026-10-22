@@ -4,7 +4,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
 import App from './app/App'
-import theme from './app/MaterialTheme.tsx'
+import theme from "./app/MaterialTheme"
 import { store } from './app/store'
 import './css/index.css'
 import reportWebVitals from './reportWebVitals'
@@ -12,7 +12,6 @@ import reportWebVitals from './reportWebVitals'
 ReactDOM.render(
 	<React.StrictMode>
 		<Provider store={store}>
-			<App />
 			<ThemeProvider theme={theme}>
 				<CssBaseline />
 				<App />

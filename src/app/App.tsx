@@ -1,7 +1,7 @@
 import { Box, Container, Stack, Typography } from '@mui/material'
 import Button from '@mui/material/Button'
 import '../css/app.css'
-import { RippleBadge } from '../MaterialTheme/styled'
+import { RippleBadge } from './MaterialTheme/styled'
 
 function App() {
 	return (
@@ -23,4 +23,3 @@ function App() {
 }
 
 export default App
-
