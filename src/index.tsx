@@ -3,18 +3,21 @@ import { ThemeProvider } from '@mui/material/styles'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
+import reportWebVitals from './reportWebVitals'
 import App from './app/App'
 import theme from "./app/MaterialTheme"
 import { store } from './app/store'
+import { BrowserRouter as Router } from 'react-router-dom';
 import './css/index.css'
-import reportWebVitals from './reportWebVitals'
 
 ReactDOM.render(
 	<React.StrictMode>
 		<Provider store={store}>
 			<ThemeProvider theme={theme}>
 				<CssBaseline />
-				<App />
+				<Router>
+					<App />
+				</Router>
 			</ThemeProvider>
 		</Provider>
 	</React.StrictMode>,
