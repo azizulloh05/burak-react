@@ -1,6 +1,9 @@
 import React from "react";
 import { Box, Container, Stack } from "@mui/material";
-import Divider from "../../components/divider";
+
+function Divider({ height, width, bg }: { height: string; width: string; bg: string }) {
+    return <Box sx={{ height: `${height}px`, width: `${width}px`, bgcolor: bg }} />;
+}
 
 export default function Statistics() {
     return (

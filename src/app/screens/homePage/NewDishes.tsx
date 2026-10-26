@@ -1,3 +1,4 @@
+
 import React from "react";
 import { Box, Container, Stack } from "@mui/material";
 import AspectRatio from "@mui/joy/AspectRatio";
@@ -6,7 +7,7 @@ import CardOverflow from "@mui/joy/CardOverflow";
 import Typography from "@mui/joy/Typography";
 import { CssVarsProvider } from "@mui/joy/styles";
 import VisibilityIcon from "@mui/icons-material/Visibility";
-import Divider from "../../components/divider";
+import Divider from "@mui/material/Divider";
 
 const newDishes = [
     { productName: "Cutlet", imagePath: "/img/cutlet.webp" },
@@ -36,11 +37,15 @@ export default function NewDishes() {
 
                                         <CardOverflow variant="soft" className="product-detail">
                                             <Stack className="info">
-                                                <Stack flexDirection={"row"}>
+                                                <Stack direction={"row"}>
                                                     <Typography className="title">
                                                         {ele.productName}
                                                     </Typography>
-                                                    <Divider width="2" height="24" bg="#d9d9d9" />
+                                                   <Divider
+                                                orientation="vertical"
+                                                  flexItem
+                                                  sx={{ borderColor: "#d9d9d9", borderRightWidth: 2 }}
+/>
                                                     <Typography className="price">$12</Typography>
                                                 </Stack>
                                                 <Stack>

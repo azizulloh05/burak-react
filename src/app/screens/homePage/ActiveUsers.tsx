@@ -19,7 +19,7 @@ export default function ActiveUsers() {
           <Box className="category-title">Active Users</Box>
           <Stack className="cards-frame">
             <CssVarsProvider>
-              {activeUsers.length !== 0 ? (
+              {activeUsers?.length > 0 ? (
                 activeUsers.map((user, index) => {
                   return (
                     <Card key={index} variant="outlined" className="card">
@@ -36,8 +36,8 @@ export default function ActiveUsers() {
                       </CardOverflow>
 
                       <CardOverflow variant="soft" className="product-detail">
-                        <Stack className="info">
-                          <Stack flexDirection={"row"}>
+                        <Stack className="info"> 
+                          <Stack direction="row">
                             <Typography className="title">
                               {user.memberNick}
                             </Typography>

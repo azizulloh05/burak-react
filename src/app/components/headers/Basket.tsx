@@ -45,7 +45,7 @@ export default function Basket() {
         slotProps={{
           paper: {
             elevation: 0,
-          sx: {
+            sx: {
             overflow: "visible",
             filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
             mt: 1.5,
@@ -67,7 +67,7 @@ export default function Basket() {
               transform: "translateY(-50%) rotate(45deg)",
               zIndex: 0,
             },
-          },
+            },
           },
         }}
         transformOrigin={{ horizontal: "right", vertical: "top" }}
