@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 import { Route, Switch, useLocation } from "react-router-dom";
 import HomePage from "./screens/homePage";
 import ProductsPage from "./screens/productsPage";
@@ -17,7 +17,7 @@ function App() {
 
   return (
     <>
-      {location.pathname === '/' ? <HomeNavbar /> : <OtherNavbar />}
+      {location.pathname === "/" ? <HomeNavbar /> : <OtherNavbar />}
       <Switch>
         <Route path="/products">
           <ProductsPage />
@@ -37,7 +37,7 @@ function App() {
       </Switch>
       <Footer />
     </>
-  )
+  );
 }
 
 export default App;
