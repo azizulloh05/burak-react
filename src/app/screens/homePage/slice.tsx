@@ -1,32 +1,37 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { HomePageState } from '../../../lib/types/screen'
 
+// Initial state
 const initialState: HomePageState = {
-	popularDishes: [],
-	newDishes: [],
-	topUsers: [],
-}
+  popularDishes: [],
+  newDishes: [],
+  topUsers: [],
+};
 
 const homePageSlice = createSlice({
-	name: 'homePage',
-	initialState,
-	reducers: {
-		setPopularDishes: (state, action) => {
-			state.popularDishes = action.payload
-		},
+  // OPTIONS
+  name: "homePage",
+  initialState,
+  // Reducer helps to change data inside  STORE
+  reducers: {
+    setPopularDishes: (state, action) => {
+      
+      state.popularDishes = action.payload;
+    },
 
-		setNewDishes: (state, action) => {
-			state.newDishes = action.payload
-		},
+    setNewDishes: (state, action) => {
+      state.newDishes = action.payload;
+    },
 
-		setTopUsers: (state, action) => {
-			state.topUsers = action.payload
-		},
-	},
-})
-
+    setTopUsers: (state, action) => {
+      state.topUsers = action.payload;
+    },
+  },
+});
+// Export for using in selectors
 export const { setPopularDishes, setNewDishes, setTopUsers } =
-	homePageSlice.actions
+  homePageSlice.actions;
 
-const HomePageReducer = homePageSlice.reducer
-export default HomePageReducer
+// connecting Reducer with Store
+const HomePageReducer = homePageSlice.reducer;
+export default HomePageReducer;
