@@ -1,20 +1,22 @@
-import React, { Dispatch } from "react";
-import { Container, Stack, Box } from "@mui/material";
-import { Swiper, SwiperSlide } from "swiper/react";
-import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
-import Divider from "../../components/divider";
-import Button from "@mui/material/Button";
-import Rating from "@mui/material/Rating";
-import { useParams } from "react-router-dom"; // @ts-ignore
-import { FreeMode, Navigation, Thumbs } from "swiper";
-import "swiper/css";
-import "swiper/css/free-mode";
-import "swiper/css/navigation";
-import "swiper/css/thumbs";
+import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye'
+import { Box, Container, Stack } from '@mui/material'
+import Button from '@mui/material/Button'
+import Rating from '@mui/material/Rating'
+import { Dispatch } from '@reduxjs/toolkit'
+import { useDispatch } from 'react-redux'
+import { useParams } from 'react-router-dom'
+import { Swiper, SwiperSlide } from 'swiper/react'
+import Divider from '../../components/divider'
+//@ts-ignore
+import { FreeMode, Navigation, Thumbs } from 'swiper'
+import 'swiper/css'
+import 'swiper/css/free-mode'
+import 'swiper/css/navigation'
+import 'swiper/css/thumbs'
 import { setChosenProduct, setRestaurant } from './slice'
 
 import { useEffect } from 'react'
-import { useDispatch as useReduxDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { createSelector } from 'reselect'
 import { serverApi } from '../../../lib/config'
 import { Member } from '../../../lib/types/member'
@@ -24,7 +26,7 @@ import ProductService from '../../services/ProductService'
 import { retrieveChosenProduct, retrieveRestaurant } from './selector'
 
 /** REDUX SLICE*/
-const actionDispatch = (dispatch: Dispatch<any>) => ({
+const actionDispatch = (dispatch: Dispatch) => ({
 	setRestaurant: (data: Member) => dispatch(setRestaurant(data)),
 	setChosenProduct: (data: Product) => dispatch(setChosenProduct(data)),
 })
@@ -48,11 +50,9 @@ export default function ChosenProduct() {
 	useEffect(() => {
 		const product = new ProductService()
 		product
-			.getProducts({ page: 1, limit: 100, order: 'createdAt' })
-			.then((data: Product[] | any) => {
-				const products = Array.isArray(data) ? data : data?.products
-				const chosen = products?.find((item: Product) => item._id === productId)
-				if (chosen) setChosenProduct(chosen)
+			.getProduct(productId)
+			.then(data => {
+				setChosenProduct(data)
 			})
 			.catch(err => console.log(err))
 
@@ -118,8 +118,4 @@ export default function ChosenProduct() {
 			</Container>
 		</div>
 	)
-}
-
-function useDispatch(): React.Dispatch<any> {
-	return useReduxDispatch()
 }
