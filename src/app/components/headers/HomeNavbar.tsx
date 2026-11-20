@@ -1,29 +1,51 @@
-import { Box, Button, Container, Stack } from "@mui/material";
+import { Logout } from "@mui/icons-material";
+import {
+  Box,
+  Button,
+  Container,
+  ListItemIcon,
+  Menu,
+  MenuItem,
+  Stack,
+} from "@mui/material";
+import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
+import { serverApi } from "../../../lib/config";
+import { CartItem } from "../../../lib/types/search";
+import { useGlobals } from "../../hooks/useGlobals";
 import Basket from "./Basket";
-import React, { useState,  } from "react";
-import { useEffect } from "react";
- 
-export default function HomeNavbar() {
-  const authMember = null;
-  const [count, setCount] = useState<number>(0);
-  const [value, setValue] = useState<boolean>(true);
 
-  useEffect(() => {
-console.log("componentDidMount"); //DATA RETRIEVAL FROM BACKEND SERVER
-setCount(count + 1);
+interface HomeNavbarProps {
+  cartItems: CartItem[];
+  onAdd: (item: CartItem) => void;
+  onRemove: (item: CartItem) => void;
+  onDelete: (item: CartItem) => void;
+  onDeleteAll: () => void;
+  setSignupOpen: (isOpen: boolean) => void;
+  setLoginOpen: (isOpen: boolean) => void;
+  handleLogoutClick: (e: React.MouseEvent<HTMLElement>) => void;
+  anChorEl: null | HTMLElement;
+  handleCloseLogout: () => void;
+  handleLogoutRequest: () => void;
+}
 
-return () => {
-  console.log("componentWillUnmount");
-  // runs before component unmount
-};
-  }, [value]);
+export default function HomeNavbar(props: HomeNavbarProps) {
+  const {
+    cartItems,
+    onAdd,
+    onRemove,
+    onDelete,
+    onDeleteAll,
+    setSignupOpen,
+    setLoginOpen,
+    handleLogoutClick,
+    anChorEl,
+    handleCloseLogout,
+    handleLogoutRequest
+  } = props;
+  const { authMember } = useGlobals();
 
-  /** HANDLERS**/
-
-  const buttonHandler = () => {
-    setValue(!value);
-  };
+  /** HANDLERS **/
 
   return (
     <div className="home-navbar">
@@ -31,7 +53,7 @@ return () => {
         <Stack className="menu">
           <Box>
             <NavLink to="/">
-              <img className="brand-logo" src="/icons/bumarak.svg" />
+              <img className="brand-logo" src="/icons/burak.svg" alt="Burak" />
             </NavLink>
           </Box>
           <Stack className="links">
@@ -45,55 +67,118 @@ return () => {
                 Products
               </NavLink>
             </Box>
+
             {authMember ? (
               <Box className={"hover-line"}>
-                <NavLink to="/orders" activeClassName={"underline"}>
-                  Orders
-                </NavLink>
+                <NavLink to="/orders">Orders</NavLink>
               </Box>
             ) : null}
+
             {authMember ? (
               <Box className={"hover-line"}>
                 <NavLink to="/member-page" activeClassName={"underline"}>
-                  My Page
+                  MyPage
                 </NavLink>
               </Box>
             ) : null}
+
             <Box className={"hover-line"}>
               <NavLink to="/help" activeClassName={"underline"}>
                 Help
               </NavLink>
             </Box>
-            <Basket />
+            <Basket
+              cartItems={cartItems}
+              onAdd={onAdd}
+              onRemove={onRemove}
+              onDelete={onDelete}
+              onDeleteAll={onDeleteAll}
+            />
 
             {!authMember ? (
               <Box>
-                <Button variant="contained" className="login-button">
-                  Login
+                <Button
+                  variant="contained"
+                  className="login-button"
+                  onClick={() => setLoginOpen(true)}
+                >
+                  LOGIN
                 </Button>
               </Box>
             ) : (
               <img
                 className="user-avatar"
-                src={"/icons/default-user.svg"}
+                alt="user-default"
+                src={
+                  authMember?.memberImage
+                    ? `${serverApi}/${authMember.memberImage}`
+                    : "/icons/default-user.svg"
+                }
                 aria-haspopup={"true"}
+                onClick={handleLogoutClick}
               />
             )}
+
+            <Menu
+              anchorEl={anChorEl}
+              id="account-menu"
+              open={Boolean(anChorEl)}
+              onClose={handleCloseLogout}
+              onClick={handleCloseLogout}
+              PaperProps={{
+                elevation: 0,
+                sx: {
+                  overflow: "visible",
+                  filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
+                  mt: 1.5,
+                  "& .MuiAvatar-root": {
+                    width: 32,
+                    height: 32,
+                    ml: -0.5,
+                    mr: 1,
+                  },
+                  "&:before": {
+                    content: '""',
+                    display: "block",
+                    position: "absolute",
+                    top: 0,
+                    right: 14,
+                    width: 10,
+                    height: 10,
+                    bgcolor: "background.paper",
+                    transform: "translateY(-50%) rotate(45deg)",
+                    zIndex: 0,
+                  },
+                },
+              }}
+              transformOrigin={{ horizontal: "right", vertical: "top" }}
+              anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
+            >
+              <MenuItem onClick={handleLogoutRequest}>
+                <ListItemIcon>
+                  <Logout fontSize="small" style={{ color: "blue" }} />
+                </ListItemIcon>
+                Logout
+              </MenuItem>
+            </Menu>
           </Stack>
         </Stack>
+
+        {/* Detail */}
         <Stack className={"header-frame"}>
           <Stack className={"detail"}>
             <Box className={"head-main-txt"}>
-              World's Most Delicious Cousine
+              World's Most Delicious Cuisine
             </Box>
             <Box className={"wel-txt"}>The Choice, not just a choice</Box>
-            <Box className={"service-txt"}>{count} hours service</Box>
+            <Box className={"service-txt"}>24 hours service</Box>
             <Box className={"signup"}>
               {!authMember ? (
-                <Button variant={"contained"}
-                 className={"signup-button"}
-                 onClick={() => setCount(count + 1)}
-                 >
+                <Button
+                  variant={"contained"}
+                  className={"signup-button"}
+                  onClick={() => setSignupOpen(true)}
+                >
                   SIGN UP
                 </Button>
               ) : null}
