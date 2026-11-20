@@ -4,7 +4,7 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import { serverApi } from "../../../lib/config";
 import { CartItem } from "../../../lib/types/search";
-import { useGlobals } from "../../hooks/useGlobals";
+import { useGlobals } from "../../hooks/useGlobal";
 import Basket from "./Basket";
 
 interface OtherNavbarProps {
