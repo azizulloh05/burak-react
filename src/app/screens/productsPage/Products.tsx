@@ -178,12 +178,12 @@ export default function Products(props: ProductProps) {
                   variant={"contained"}
                   color={
                     productSearch.productCollection ===
-                    ProductCollection.DESSERT
+                    ProductCollection.DESERT
                       ? "primary"
                       : "secondary"
                   }
                   onClick={() =>
-                    searchCollectionHandler(ProductCollection.DESSERT)
+                    searchCollectionHandler(ProductCollection.DESERT)
                   }
                 >
                   Dessert

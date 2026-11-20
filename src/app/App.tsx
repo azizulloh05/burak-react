@@ -16,10 +16,10 @@ import Test from "./screens/Test";
 import { CartItem } from "../lib/types/search";
 import useBasket from "./hooks/useBasket";
 import AuthenticationModal from "./components/auth";
-import { T } from "./lib/types/common";
+import { T } from "../lib/types/common";
 import { useGlobals } from "./hooks/useGlobals";
 import { sweetErrorHandling, sweetTopSuccessAlert } from "../lib/sweetAlert";
-import { Messages } from "../lib/config";
+import { Message } from "../lib/config";
 import MemberService from "./services/MemberService";
 
 function App() {
@@ -48,7 +48,7 @@ function App() {
       setAuthMember(null);
     } catch (err) {
       console.log(err);
-      sweetErrorHandling(Messages.error1);
+      sweetErrorHandling(Message.error1);
     }
   };
   return (
